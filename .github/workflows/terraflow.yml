@@ -1,0 +1,31 @@
+name: Terraform Deployment
+
+on:
+  push:
+    branches:
+      - dvtf  # Change to the branch you want to auto-deploy
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Apply Terraform
+        run: terraform apply -auto-approve
+
+      - name: Get Instance Names
+        run: terraform output -json instance_names > instances.json
+
+      - name: Send Email Notification
+        run: |
+          INSTANCE_NAMES=$(jq -r '.[]' instances.json | paste -sd "," -)
+          echo "Deployed Instances: $INSTANCE_NAMES" | mail -s "Terraform Deployment - Instance Names" team@example.com
