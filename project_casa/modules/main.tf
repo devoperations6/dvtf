@@ -1,4 +1,4 @@
-# module file
+# module files
 module "vpc" {
   source = "./modules/vpc"
 
