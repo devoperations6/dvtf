@@ -11,21 +11,3 @@ module "vpc" {
 output "vpc_id" {
   value = module.vpc.vpc_id
 }
-
-resource "aws_s3_bucket" "project_casa" {
-  bucket = "project_casa"
-  acl    = "private"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-
-  tags = {
-    Name        = "project_casa"
-    Environment = "Production"
-  }
-}
