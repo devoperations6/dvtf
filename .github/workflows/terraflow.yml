@@ -55,7 +55,7 @@ jobs:
       # Step 9: Upload Terraform Plan for review (optional)
       - name: Upload Terraform Plan
         if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/upload-artifact@v2  # Using version 2 for artifact uploading
+        uses: actions/upload-artifact@v3  # Correctly using v3 for artifact upload
         with:
           name: terraform-plan
           path: tfplan
