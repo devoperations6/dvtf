@@ -28,12 +28,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Change to the subdirectory containing your Terraform files
-      - name: Change to Terraform directory
-        working-directory: ./project_casa  # Make sure this path is correct
-
       - name: Terraform Init
-        run: terraform init  # Run init inside the subdirectory
+        run: terraform init # Run init inside the subdirectory
         working-directory: ./project_casa
 
       - name: Terraform Plan
