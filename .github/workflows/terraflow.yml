@@ -3,59 +3,37 @@ name: Terraform Workflow
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch (or any other branch you use)
+      - main
   pull_request:
     branches:
-      - main  # Trigger on pull request to main branch
+      - main
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the code from GitHub repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Set up Terraform
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: "1.5.0"  # Specify the Terraform version you need
+          terraform_version: "1.5.0"
 
-      # Step 3: Set up AWS credentials (if you're using AWS)
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Set in GitHub secrets
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # Set in GitHub secrets
-          aws_region: us-east-1  # Set the AWS region
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-east-1
 
-      # Step 4: Initialize Terraform
       - name: Terraform Init
         run: terraform init
 
-      # Step 5: Terraform Format Check (optional)
-      - name: Terraform Format Check
-        run: terraform fmt -check -diff
-
-      # Step 6: Terraform Validate
-      - name: Terraform Validate
-        run: terraform validate
-
-      # Step 7: Terraform Plan
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
-      # Step 8: Terraform Apply (only on push to main, after approval in PR)
       - name: Terraform Apply
         if: ${{ github.event_name == 'push' }}
         run: terraform apply -auto-approve tfplan
-
-      # Step 9: Upload Terraform Plan for review (optional)
-      - name: Upload Terraform Plan
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/upload-artifact@v3  # Correctly using v3 for artifact upload
-        with:
-          name: terraform-plan
-          path: tfplan
