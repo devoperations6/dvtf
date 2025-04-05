@@ -36,7 +36,7 @@ jobs:
         run: terraform plan -out=tfplan
         working-directory: ./project_casa
 
-      - name: Terraform Apply
+      - name: Terraform destroy
         if: ${{ github.event_name == 'push' }}
-        run: terraform apply -auto-approve tfplan
+        run: terraform destroy -auto-approve tfplan
         working-directory: ./project_casa
