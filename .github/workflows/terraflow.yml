@@ -30,13 +30,15 @@ jobs:
 
       # Change to the subdirectory containing your Terraform files
       - name: Change to Terraform directory
-        run: cd project_casa  # Make sure this path is correct
+        working-directory: ./project_casa  # Make sure this path is correct
 
       - name: Terraform Init
         run: terraform init  # Run init inside the subdirectory
+        working-directory: ./project_casa
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        working-directory: ./project_casa
 
       - name: Terraform Apply
         if: ${{ github.event_name == 'push' }}
