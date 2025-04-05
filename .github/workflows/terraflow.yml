@@ -29,6 +29,14 @@ jobs:
           export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      - name: Clean .terraform directory
+        run: rm -rf environments/${{ env.ENV }}/.terraform
+
+      - name: List Directory Structure
+        run: |
+          echo "Listing directory structure for debugging"
+          ls -R environments/${{ env.ENV }}
+
       - name: Initialize Terraform
         run: terraform init
         working-directory: environments/${{ env.ENV }}
