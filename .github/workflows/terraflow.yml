@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   terraform:
@@ -36,7 +37,7 @@ jobs:
         run: terraform plan -out=tfplan
         working-directory: ./project_casa
 
-      - name: Terraform destroy
-        if: ${{ github.event_name == 'push' }}
-        run: terraform destroy -auto-approve tfplan
+      - name: Terraform Destroy
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: terraform destroy -auto-approve
         working-directory: ./project_casa
