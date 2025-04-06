@@ -13,17 +13,16 @@ output "vpc_id" {
   value = module.vpc.vpc_id
 }
 
-resource "aws_s3_bucket" "project_casa" {
-  bucket = "project_casa"
+resource "aws_s3_bucket" "casa_bucket" {
+  bucket = "casa_bucket"
 
   tags = {
-    Name        = "project_casa"
-    Environment = "Production"
+    Name        = "casa_bucket"
   }
 }
 
 resource "aws_s3_bucket_versioning" "project_casa" {
-  bucket = aws_s3_bucket.project_casa.id
+  bucket = aws_s3_bucket.casa_bucket.id
 
   versioning_configuration {
     status = "Enabled"
