@@ -12,7 +12,7 @@ output "vpc_id" {
   value = module.vpc.vpc_id
 }
 
-resource "aws_s3_bucket" "casa-bucket" {
+resource "aws_s3_bucket" "casa-bucket-nral8p" {
   bucket = "casa-bucket-nral8p"
 
   tags = {
