@@ -13,20 +13,14 @@ output "vpc_id" {
 }
 
 resource "aws_s3_bucket" "casa-bucket" {
-  bucket = "casa-bucket-${random_string.suffix.result}"
+  bucket = "casa-bucket-nral8p"
 
   tags = {
-    Name        = "casa-bucket"
+    Name        = "casa-bucket-nral8p"
   }
 }
-resource "random_string" "suffix" {
-  length  = 6
-  special = false
-  upper   = false
-}
-
 resource "aws_s3_bucket_versioning" "project_casa" {
-  bucket = aws_s3_bucket.casa-bucket.id
+  bucket = aws_s3_bucket.casa-bucket-nral8p.id
 
   versioning_configuration {
     status = "Enabled"
