@@ -33,9 +33,7 @@ jobs:
         run: terraform init
         working-directory: ./project_casa
 
-      - name: Terraform Plan
-        run: terraform plan
-        working-directory: ./project_casa
+      
 
       - name: Terraform destroy
         run:  terraform destroy -auto-approve
