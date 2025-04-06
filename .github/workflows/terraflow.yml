@@ -38,7 +38,5 @@ jobs:
         working-directory: ./project_casa
 
       - name: Terraform Apply
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: |
-          terraform apply -auto-approve
+        run:  terraform apply -auto-approve
         working-directory: ./project_casa
