@@ -20,7 +20,7 @@ resource "aws_s3_bucket" "casa-bucket" {
   }
 }
 resource "aws_s3_bucket_versioning" "project_casa" {
-  bucket = aws_s3_bucket.casa-bucket-nral8p.id
+  bucket = aws_s3_bucket.casa-bucket.id
 
   versioning_configuration {
     status = "Enabled"
