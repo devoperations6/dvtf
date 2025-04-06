@@ -32,11 +32,11 @@ resource "aws_s3_bucket_versioning" "project_casa" {
     status = "Enabled"
   }
 }
-terraform {
-  backend "s3" {
-    bucket         = "project_casa"  # Name of your S3 bucket
-    key            = "terraform.tfstate"  # Path to the state file in the bucket
-    region         = "us-east-2"  # Region of your S3 bucket
-    encrypt        = true  # Enable server-side encryption
-  }
-}
+# terraform {
+#   backend "s3" {
+#     bucket         = "casa-bucket"  # Name of your S3 bucket
+#     key            = "terraform.tfstate"  # Path to the state file in the bucket
+#     region         = "us-east-2"  # Region of your S3 bucket
+#     encrypt        = true  # Enable server-side encryption
+#   }
+# }
