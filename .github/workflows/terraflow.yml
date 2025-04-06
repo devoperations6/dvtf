@@ -34,12 +34,11 @@ jobs:
         working-directory: ./project_casa
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan
         working-directory: ./project_casa
 
       - name: Terraform Apply
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
-          terraform show tfplan  # Show the plan details
-          terraform apply -auto-approve tfplan
+          terraform apply -auto-approve
         working-directory: ./project_casa
