@@ -13,7 +13,7 @@ output "vpc_id" {
 }
 
 resource "aws_s3_bucket" "casa-bucket" {
-  bucket = "casa_bucket"
+  bucket = "casa-bucket"
 
   tags = {
     Name        = "casa-bucket"
