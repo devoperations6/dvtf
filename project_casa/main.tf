@@ -20,6 +20,13 @@ resource "aws_s3_bucket" "casa-bucket-nral8p" {
   }
 }
 
+resource "aws_s3_bucket_versioning" "project_casa" {
+  bucket = aws_s3_bucket.casa-bucket-nral8p.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
 terraform {
   backend "s3" {
     bucket         = "casa-bucket-nral8p"  # Name of your S3 bucket
