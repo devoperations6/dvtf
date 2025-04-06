@@ -13,11 +13,16 @@ output "vpc_id" {
 }
 
 resource "aws_s3_bucket" "casa-bucket" {
-  bucket = "casa-bucket"
+  bucket = "casa-bucket-${random_string.suffix.result}"
 
   tags = {
     Name        = "casa-bucket"
   }
+}
+resource "random_string" "suffix" {
+  length  = 6
+  special = false
+  upper   = false
 }
 
 resource "aws_s3_bucket_versioning" "project_casa" {
@@ -27,11 +32,11 @@ resource "aws_s3_bucket_versioning" "project_casa" {
     status = "Enabled"
   }
 }
-# terraform {
-#   backend "s3" {
-#     bucket         = "project_casa"  # Name of your S3 bucket
-#     key            = "terraform.tfstate"  # Path to the state file in the bucket
-#     region         = "us-east-2"  # Region of your S3 bucket
-#     encrypt        = true  # Enable server-side encryption
-#   }
-# }
+terraform {
+  backend "s3" {
+    bucket         = "project_casa"  # Name of your S3 bucket
+    key            = "terraform.tfstate"  # Path to the state file in the bucket
+    region         = "us-east-2"  # Region of your S3 bucket
+    encrypt        = true  # Enable server-side encryption
+  }
+}
